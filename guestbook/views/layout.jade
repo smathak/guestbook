@@ -1,0 +1,20 @@
+doctype html
+html(lang='ko')
+  head
+    title guestbook
+    meta(charset='UTF-8')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap-theme.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
+    script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
+  body
+     if flashMessages 
+      each texts,  type in flashMessages
+        .container
+          .alert(class='alert-#{type}') // type이 danger이면 alert-danger로 바뀜 
+            each msg in texts
+              p= msg    
+      block content
+       

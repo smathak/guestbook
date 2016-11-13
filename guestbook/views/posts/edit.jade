@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container
+    if post.id 
+      h1.page-header 글수정
+    else
+      h1.page-header 글쓰기
+
+      //- post.id, post._id 둘다 가능
+      //- 설명: ?이전까지가 path이고 ?이후로는 requeset를 보내는 method를 정의. 원래는 새롭게 글을 쓸 때는 POST 이지만, 
+      //- 수정일 경우 method가 PUT이기 때문에 이런 방법을 쓴다. 
+      //- action에는 데이터가 보내질 URL을 쓴다.
+      //- 수정하기를 누르면 /posts/#{post.id}?로 하곡, 글쓰기를 누르면 /posts로 간다. 
+    form(action = (post.id) ? "/posts/#{post.id}?_method=PUT" : "/posts", method='POST')
+    
+      .form-group
+        label(for='email') Email address
+        //- email을 반드시 쓰도록 required로 바꿈
+        input.form-control(type='email', id='email', name='email', placeholder='Email', value=post.email, required) 
+        label(for='password') Password
+        //- password를 반드시 쓰도록 required로 바꿈
+        input.form-control(type='password', id='password', name='password', placeholder='Password', required)
+      .form-group
+        label(for='title') Title
+        //- title을 반드시 쓰도록 required로 바꿈
+        input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title, required)
+      .form-group
+        label(for='content') Content
+        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content
+      div.form-actions
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | 
+        button.btn.btn-primary(type='submit') 완료
